@@ -8,3 +8,4 @@ SQLAlchemy==2.0.31
 requests==2.25.1
 Werkzeug==2.2.3
 WTForms==3.0.1
+bleach==6.0.0
