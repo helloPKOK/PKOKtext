@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }} யின் சுயவிவரம்</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2a2a2a;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .profile-info {
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .edit-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #505050;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .edit-button:hover {
+            background-color: #474747;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .posts-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .posts-list li {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .posts-list a {
+            color: #00aaff;
+            text-decoration: none;
+        }
+        .posts-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ user.username }} யின் சுயவிவரம்</h1>
+        {% if current_user.username == user.username %}
+            <a href="{{ url_for('edit_userprofile') }}" class="edit-button">சுயவிவரத்தை திருத்து</a>
+        {% endif %}
+    </header>
+    <div class="container">
+        <div class="profile-info">
+            <p><strong>பயனர் பெயர்:</strong> {{ user.username }}</p>
+            <p><strong>மொழி:</strong> {{ user.language }}</p>
+        </div>
+        <div class="posts-info">
+            <p><strong>அளவுகள்:</strong></p>
+            <ul class="posts-list">
+                {% for post in user.posts %}
+                    <li><a href="{{ url_for('comments', post_id=post.id) }}" style="text-decoration: none; color: aliceblue;">{{ post.title }}</a></li>
+                {% else %}
+                    <li>அந்த பதிவுகள் எதுவும் இல்லை.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{{ url_for('mainpage') }}" class="back-link">முதலித்தளத்திற்கு திரும்பு</a>
+    </div>
+</body>
+</html>

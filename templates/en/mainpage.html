@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mainpage</title>
+    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .back-link {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .box {
+            width: 100%;
+            max-width: max-content;
+            border: 2px solid aliceblue;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #888888;
+            text-align: center;
+            border-radius: 8px;
+            background-color: #2c2c2c;
+        }
+        .post-button, .logout {
+            border-radius: 0;
+            border-color: aliceblue;
+            color: aliceblue;
+            background-color: #303030;
+            padding: 10px 20px;
+            border-style: hidden;
+            display: inline-block;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .author-link {
+            color: #919191;
+            text-decoration: none;
+        }
+        .author-link:hover {
+            text-decoration: underline;
+        }
+
+        .post-button a {
+            text-decoration: none;
+            color: aliceblue;
+        }
+        .like-button, .delete-button {
+            background-color: #363636;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .switch{
+            background-color: #292929;
+            color: aliceblue;
+            border: none;
+            border-style: hidden;
+        }
+        .delete-button {
+            background-color: #3a3a3a;
+        }
+        .logout {
+            background-color: #303030;
+            color: aliceblue;
+            padding: 10px 20px;
+            border-style: hidden;
+            display: inline-block;
+            font-size: x-large;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+        }
+        .comment-link {
+            text-decoration: none;
+            color: aliceblue;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .search-form {
+            margin: 20px;
+            text-align: center;
+        }
+        .search-form input[type="text"], .search-form select {
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-form input[type="submit"] {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #303030;
+            color: aliceblue;
+            cursor: pointer;
+        }
+        .search-form input[type="submit"]:hover {
+            background-color: #292929;
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 15px;
+            }
+            .post-button, .logout {
+                width: 100%;
+                padding: 10px;
+                font-size: large;
+            }
+            .container {
+                padding: 10px;
+            }
+            .box {
+                width: 100%;
+                margin: 5px 0;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to GreyScribe, {{ current_user.username }}</h1>
+        <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+            <button type="submit" class="logout">Logout</button>
+        </a>
+        <form action="{{ url_for('switch_language') }}" method="post">
+            <button type="submit" class="switch">{{ 'Switch Language' }}</button>
+        </form>
+    </header>
+    <p>Current Language: {{ current_user.language }}</p>
+    <a href="{{ url_for('postpage') }}">
+        <button type="submit" class="post-button">Post</button>
+    </a>
+    <div class="search-form">
+        <form method="GET" action="{{ url_for('search') }}">
+            <input type="text" name="query" placeholder="Search posts...">
+            <select name="language">
+                <option value="">All Languages</option>
+                <option value="Tamizh">Tamizh</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Mandarin">Mandarin</option>
+                <option value="Spanish">Spanish</option>
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Bengali">Bengali</option>
+                <option value="Brazilian Portuguese">Brazilian Portuguese</option>
+                <option value="Russian">Russian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Punjabi">Punjabi</option>
+                <option value="German">German</option>
+                <option value="Javanese">Javanese</option>
+                <option value="Wu">Wu</option>
+                <option value="Malay">Malay</option>
+                <option value="Korean">Korean</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Telugu">Telugu</option>
+                <option value="French">French</option>
+                <option value="Marathi">Marathi</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Italian">Italian</option>
+                <option value="Cantonese (Yue)">Cantonese (Yue)</option>
+                <option value="Persian (Farsi)">Persian (Farsi)</option>
+                <option value="Gujarati">Gujarati</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Bhojpuri">Bhojpuri</option>
+                <option value="Polish">Polish</option>
+                <option value="Kurdish Languages">Kurdish Languages</option>
+                <option value="Pashto">Pashto</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Sundanese">Sundanese</option>
+                <option value="Malayalam">Malayalam</option>
+                <option value="Maithili">Maithili</option>
+                <option value="Hausa">Hausa</option>
+                <option value="Odia (Oriya)">Odia (Oriya)</option>
+                <option value="Burmese">Burmese</option>
+                <option value="Ukrainian">Ukrainian</option>
+                <option value="Yoruba">Yoruba</option>
+                <option value="Tagalog (Filipino)">Tagalog (Filipino)</option>
+                <option value="Uzbek">Uzbek</option>
+                <option value="Fula">Fula</option>
+                <option value="Amharic">Amharic</option>
+                <option value="Romanian">Romanian</option>
+                <option value="Oromo">Oromo</option>
+                <option value="Igbo">Igbo</option>
+                <option value="Azerbaijani">Azerbaijani</option>
+                <option value="Sinhala">Sinhala</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Serbo-Croatian">Serbo-Croatian</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Czech">Czech</option>
+                <option value="Kinyarwanda">Kinyarwanda</option>
+                <option value="Chittagonian">Chittagonian</option>
+                <option value="Kazakh">Kazakh</option>
+                <option value="Dari">Dari</option>
+                <option value="Hungarian">Hungarian</option>
+                <option value="Kinyabwisha">Kinyabwisha</option>
+                <option value="Zulu">Zulu</option>
+                <option value="South Levantine Arabic">South Levantine Arabic</option>
+                <option value="Tswana">Tswana</option>
+                <option value="Xhosa">Xhosa</option>
+                <option value="Samoan">Samoan</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Haitian Creole">Haitian Creole</option>
+                <option value="Quechua">Quechua</option>
+                <option value="Shona">Shona</option>
+                <option value="Armenian">Armenian</option>
+                <option value="Macedonian">Macedonian</option>
+                <option value="Fijian">Fijian</option>
+                <option value="Marshallese">Marshallese</option>
+                <option value="Tahitian">Tahitian</option>
+                <option value="Tigrinya">Tigrinya</option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="container">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="box">
+                <h2>{{ post.title|safe }}</h2>
+                <p>{{ post.test|safe }}</p>
+                <p>Likes: {{ post.likes|length }}</p>
+                <p>Comments: {{ post.comments|length }}</p>
+                <p>by <a href="{{ url_for('userprofile', username=post.author.username) }}">{{ post.author.username }}</a></p>
+                <form method="POST" action="{{ url_for('like_post', post_id=post.id) }}">
+                    <button class="like-button" type="submit">
+                        {% if user_likes %}
+                        Unlike
+                        {% else %}
+                        Like
+                        {% endif %}
+                    </button>
+                </form>
+                {% if post.author == current_user %}
+                <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}" style="display:inline;">
+                    <button class="delete-button" type="submit">Delete</button>
+                </form>
+                {% endif %}
+
+                <br>
+                <a href="{{ url_for('comments', post_id=post.id) }}" class="comment-link">Comments</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No posts available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>    

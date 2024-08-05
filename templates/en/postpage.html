@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <style>
+        body {
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 5vh;
+            margin: 20px 0;
+            color: #fff;
+        }
+        .post-box {
+            width: 90%;
+            max-width: 600px;
+            background-color: #333;
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 5px 5px 10px #000;
+            color: #fff;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .textarea, .language-select, .title-input {
+            background-color: #555;
+            border: 1px solid #000;
+            color: #fff;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .textarea {
+            min-height: 100px;
+        }
+        .language-select {
+            max-height: min-content;
+            max-width: fit-content;
+            overflow-y: auto; 
+        }
+        .submit {
+            border-radius: 5px;
+            border: 1px solid #000;
+            padding: 10px 20px;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+            font-size: large;
+        }
+        .submit:hover {
+            background-color: #444;
+        }
+        .messages {
+            margin-top: 20px;
+            color: #f00;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 4vh;
+            }
+            .post-box {
+                width: 95%;
+                padding: 15px;
+            }
+            .textarea {
+                font-size: medium;
+            }
+            .submit {
+                font-size: medium;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="post-box">
+        <h1>Create a New Post</h1>
+        <form method="POST" action="{{ url_for('postpage') }}">
+            <label for="title">Title:</label>
+            <input type="text" name="title" class="title-input" id="title" placeholder="Enter post title" required><br>
+            <textarea name="text" class="textarea" id="texttopost" placeholder="Write the content that you want to show" required></textarea><br>
+            <label for="language">Select Language:</label>
+            <select name="language" class="language-select" id="language">
+                <option value="Tamizh">Tamizh</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Mandarin">Mandarin</option>
+                <option value="Spanish">Spanish</option>
+                <option value="English">English</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Bengali">Bengali</option>
+                <option value="Brazilian Portuguese">Brazilian Portuguese</option>
+                <option value="Russian">Russian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Punjabi">Punjabi</option>
+                <option value="German">German</option>
+                <option value="Javanese">Javanese</option>
+                <option value="Wu">Wu</option>
+                <option value="Malay">Malay</option>
+                <option value="Korean">Korean</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Telugu">Telugu</option>
+                <option value="French">French</option>
+                <option value="Marathi">Marathi</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Italian">Italian</option>
+                <option value="Cantonese (Yue)">Cantonese (Yue)</option>
+                <option value="Persian (Farsi)">Persian (Farsi)</option>
+                <option value="Gujarati">Gujarati</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Bhojpuri">Bhojpuri</option>
+                <option value="Polish">Polish</option>
+                <option value="Kurdish Languages">Kurdish Languages</option>
+                <option value="Pashto">Pashto</option>
+                <option value="Kannada">Kannada</option>
+                <option value="Sundanese">Sundanese</option>
+                <option value="Malayalam">Malayalam</option>
+                <option value="Maithili">Maithili</option>
+                <option value="Hausa">Hausa</option>
+                <option value="Odia (Oriya)">Odia (Oriya)</option>
+                <option value="Burmese">Burmese</option>
+                <option value="Ukrainian">Ukrainian</option>
+                <option value="Yoruba">Yoruba</option>
+                <option value="Tagalog (Filipino)">Tagalog (Filipino)</option>
+                <option value="Uzbek">Uzbek</option>
+                <option value="Fula">Fula</option>
+                <option value="Amharic">Amharic</option>
+                <option value="Sindhi">Sindhi</option>
+                <option value="Igbo">Igbo</option>
+                <option value="Romanian">Romanian</option>
+                <option value="Oromo">Oromo</option>
+                <option value="Azerbaijani (Azeri)">Azerbaijani (Azeri)</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Cebuano (Visayan)">Cebuano (Visayan)</option>
+                <option value="Thai">Thai</option>
+                <option value="Lao">Lao</option>
+                <option value="Serbo-Croatian">Serbo-Croatian</option>
+                <option value="Malagasy">Malagasy</option>
+                <option value="Nepalese (Nepali)">Nepalese (Nepali)</option>
+                <option value="Sinhala (Sinhalese)">Sinhala (Sinhalese)</option>
+                <option value="Khmer">Khmer</option>
+                <option value="Taiwanese">Taiwanese</option>
+                <option value="Swahili">Swahili</option>
+                <option value="Madurese">Madurese</option>
+                <option value="Somali">Somali</option>
+                <option value="Assamese (Asamiya)">Assamese (Asamiya)</option>
+                <option value="Hungarian">Hungarian</option>
+                <option value="Greek">Greek</option>
+                <option value="Kazakh">Kazakh</option>
+                <option value="Zulu">Zulu</option>
+                <option value="Afrikaans">Afrikaans</option>
+                <option value="Haitian Creole">Haitian Creole</option>
+                <option value="Czech">Czech</option>
+                <option value="Ilokano">Ilokano</option>
+                <option value="Dari">Dari</option>
+                <option value="Swedish">Swedish</option>
+                <option value="Quechua">Quechua</option>
+                <option value="Kirundi (Rundi)">Kirundi (Rundi)</option>
+                <option value="Serbian">Serbian</option>
+                <option value="Uyghur">Uyghur</option>
+                <option value="Hiligaynon">Hiligaynon</option>
+                <option value="Xhosa">Xhosa</option>
+                <option value="Albanian">Albanian</option>
+                <option value="Catalan">Catalan</option>
+                <option value="Belarusian">Belarusian</option>
+                <option value="Bulgarian">Bulgarian</option>
+                <option value="Armenian">Armenian</option>
+                <option value="Maltese">Maltese</option>
+                <option value="Welsh">Welsh</option>
+                <option value="Luxembourgish">Luxembourgish</option>
+                <option value="Icelandic">Icelandic</option>
+                <option value="Tahitian">Tahitian</option>
+                <option value="Irish">Irish</option>
+                <option value="Latin">Latin</option>
+            </select><br>
+            <p>Display Name: {{ current_user.username }}</p>
+            <input type="submit" value="Submit" class="submit">
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="messages">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>பயனர் சுயவிவரங்கள்</title>
+</head>
+<body>
+    <h1>பயனர் சுயவிவரங்கள்</h1>
+    <h2>வரவேற்கின்றேன், {{ current_user.username }}!</h2>
+    
+    <form method="POST">
+        <label for="username">பயனர்பெயரை மாற்றவும்:</label>
+        <input type="text" id="username" name="username" value="{{ current_user.username }}">
+        <br>
+        <label for="password">ரகசியவெளியை மாற்றவும்:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <button type="submit">சுயவிவரத்தை புதுப்பிக்கவும்</button>
+    </form>
+
+    <a href="{{ url_for('mainpage') }}">முகப்புத்தகத்துக்கு திரும்பவும்</a>
+</body>
+</html>

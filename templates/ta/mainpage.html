@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>முதன்மை பக்கம்</title>
+    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #2a2a2a;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .back-link {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            font-size: 16px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .box {
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid aliceblue;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #888888;
+            text-align: center;
+            border-radius: 8px;
+            background-color: #2c2c2c;
+        }
+        .post-button, .logout {
+            border-radius: 0;
+            border-color: aliceblue;
+            color: aliceblue;
+            background-color: #303030;
+            padding: 10px 20px;
+            border-style: hidden;
+            display: inline-block;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .post-button a {
+            text-decoration: none;
+            color: aliceblue;
+        }
+        .like-button, .delete-button {
+            background-color: #363636;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .delete-button {
+            background-color: #3a3a3a;
+        }
+        .logout {
+            background-color: #303030;
+            color: aliceblue;
+            padding: 10px 20px;
+            border-style: hidden;
+            display: inline-block;
+            font-size: x-large;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+        }
+        .comment-link {
+            text-decoration: none;
+            color: aliceblue;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .search-form {
+            margin: 20px;
+            text-align: center;
+        }
+        .search-form input[type="text"], .search-form select {
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-form input[type="submit"] {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #303030;
+            color: aliceblue;
+            cursor: pointer;
+        }
+        .switch{
+            background-color: #292929;
+            color: aliceblue;
+            border: none;
+            border-style: hidden;
+        }
+        .search-form input[type="submit"]:hover {
+            background-color: #292929;
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 15px;
+            }
+            .post-button, .logout {
+                width: 100%;
+                padding: 10px;
+                font-size: large;
+            }
+            .container {
+                padding: 10px;
+            }
+            .box {
+                width: 100%;
+                margin: 5px 0;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>GreyScribe-க்கு வரவேற்கிறேன், {{ current_user.username }}</h1>
+        <a href="{{ url_for('logout') }}" style="text-decoration: none;">
+            <button type="submit" class="logout">லாக்ஔட்</button>
+        </a>
+        <form action="{{ url_for('switch_language') }}" method="post">
+            <button type="submit" class="switch">{{ 'மொழி மாற்றவும்' }}</button>
+        </form>
+    </header>
+    <p>தற்போதைய மொழி: {{ current_user.language }}</p>
+    <a href="{{ url_for('postpage') }}">
+        <button type="submit" class="post-button">பதிவு</button>
+    </a>
+    <div class="search-form">
+        <form method="GET" action="{{ url_for('search') }}">
+            <input type="text" name="query" placeholder="பதிவுகளை தேடுங்கள்...">
+            <select name="language">
+                <option value="">அனைத்து மொழிகள்</option>
+                <option value="Tamizh">தமிழ்</option>
+                <option value="Chinese">சீனம்</option>
+                <option value="Mandarin">மண்டரின்</option>
+                <option value="Spanish">ஸ்பானிஷ்</option>
+                <option value="English">ஆங்கிலம்</option>
+                <option value="Arabic">அரபு</option>
+                <option value="Hindi">இந்தி</option>
+                <option value="Portuguese">போர்த்துகீசு</option>
+                <option value="Bengali">பெங்காலி</option>
+                <option value="Brazilian Portuguese">பிரசீலிய போர்த்துகீசு</option>
+                <option value="Russian">ரஷ்யன்</option>
+                <option value="Japanese">ஜப்பனீஸ்</option>
+                <option value="Punjabi">பஞ்சாபி</option>
+                <option value="German">ஜெர்மன்</option>
+                <option value="Javanese">ஜாவானீசு</option>
+                <option value="Wu">வூ</option>
+                <option value="Malay">மலயாலம்</option>
+                <option value="Korean">கோரியன்</option>
+                <option value="Vietnamese">வியட்நாமியன்</option>
+                <option value="Telugu">தெலுங்கு</option>
+                <option value="French">பிரெஞ்சு</option>
+                <option value="Marathi">மராத்தி</option>
+                <option value="Turkish">துருக்கி</option>
+                <option value="Urdu">உருது</option>
+                <option value="Italian">இத்தாலியன்</option>
+                <option value="Cantonese (Yue)">கேண்டோனீஸ் (யுய்)</option>
+                <option value="Persian (Farsi)">பரசியன் (பார்ஸி)</option>
+                <option value="Gujarati">குஜராத்தி</option>
+                <option value="Indonesian">இந்தோனேசியன்</option>
+                <option value="Bhojpuri">போஜ்புரி</option>
+                <option value="Polish">போலிஷ்</option>
+                <option value="Kurdish Languages">குர்டிஷ் மொழிகள்</option>
+                <option value="Pashto">பஷ்தோ</option>
+                <option value="Kannada">கன்னடா</option>
+                <option value="Sundanese">சுந்தானிஸ்</option>
+                <option value="Malayalam">மலயாளம்</option>
+                <option value="Maithili">மைதிலி</option>
+                <option value="Hausa">ஹௌசா</option>
+                <option value="Odia (Oriya)">ஒடியா (ஒரியா)</option>
+                <option value="Burmese">பர்மீசு</option>
+                <option value="Ukrainian">உக்ரைனியன்</option>
+                <option value="Yoruba">யொருபா</option>
+                <option value="Tagalog (Filipino)">டாகலோக (பிலிபினோ)</option>
+                <option value="Uzbek">உஸ்பெக்</option>
+                <option value="Fula">புலா</option>
+                <option value="Amharic">அமஹரிக்</option>
+                <option value="Romanian">ரோமானியன்</option>
+                <option value="Oromo">ஓரோமோ</option>
+                <option value="Igbo">இக்போ</option>
+                <option value="Azerbaijani">அசர்பைஜானி</option>
+                <option value="Sinhala">சிங்களம்</option>
+                <option value="Dutch">நெதர்லாந்து</option>
+                <option value="Serbo-Croatian">செர்போ-குரோயேஷியன்</option>
+                <option value="Rwanda">ருவாண்டா</option>
+                <option value="Czech">செக்</option>
+                <option value="Kinyarwanda">கின்யர்வாண்டா</option>
+                <option value="Chittagonian">சிட்டகோனியன்</option>
+                <option value="Kazakh">கசாக்கு</option>
+                <option value="Dari">தரி</option>
+                <option value="Hungarian">ஹங்கேரியன்</option>
+                <option value="Kinyabwisha">கின்யாப்விஷா</option>
+                <option value="Zulu">சுலு</option>
+                <option value="South Levantine Arabic">தெற்குப் லெவண்டைன் அரபு</option>
+                <option value="Tswana">ட்ச்வானா</option>
+                <option value="Xhosa">க்ஸோசா</option>
+                <option value="Samoan">சமோவா</option>
+                <option value="Tonga">டொங்கா</option>
+                <option value="Haitian Creole">ஹைதியன் கிரியோல்</option>
+                <option value="Quechua">கேச்சுவா</option>
+                <option value="Shona">ஷோனா</option>
+                <option value="Armenian">ஆர்மேனியன்</option>
+                <option value="Macedonian">மாகிடோனியன்</option>
+                <option value="Fijian">பிஜியன்</option>
+                <option value="Marshallese">மார்ஷல்லீசு</option>
+                <option value="Tahitian">தஹிடியன்</option>
+                <option value="Tigrinya">டிகிரின்யா</option>
+            </select>
+            <input type="submit" value="தேடுங்கள்">
+        </form>
+    </div>
+    <div class="container">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="box">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content }}</p>
+                <p>ஆர்வம்: {{ post.likes|length }}</p>
+                <p>கருத்துகள்: {{ post.comments|length }}</p>
+                
+                <form method="POST" action="{{ url_for('like_post', post_id=post.id) }}">
+                    <button class="like-button" type="submit">
+                        {% if user_likes %}
+                        ரசிக்கவில்லை
+                        {% else %}
+                        ரசிக்கவும்
+                        {% endif %}
+                    </button>
+                </form>
+                {% if post.author == current_user %}
+                <form method="POST" action="{{ url_for('delete_post', post_id=post.id) }}" style="display:inline;">
+                    <button class="delete-button" type="submit">நீக்கு</button>
+                </form>
+                {% endif %}
+                <br>
+                <a href="{{ url_for('comments', post_id=post.id) }}" class="comment-link">கருத்துகள்</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>எந்தப் பதிவுகளும் இல்லை.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
