@@ -9,7 +9,7 @@ import bleach
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pkoktext.sqlite3'
-app.config['SECRET_KEY'] = 'secret'
+app.config['SECRET_KEY'] = '********'
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
