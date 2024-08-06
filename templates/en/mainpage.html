@@ -254,7 +254,7 @@
             {% for post in posts %}
             <div class="box">
                 <h2>{{ post.title|safe }}</h2>
-                <p>{{ post.test|safe }}</p>
+                <p>{{ post.text|safe }}</p>
                 <p>Likes: {{ post.likes|length }}</p>
                 <p>Comments: {{ post.comments|length }}</p>
                 <p>by <a href="{{ url_for('userprofile', username=post.author.username) }}">{{ post.author.username }}</a></p>
