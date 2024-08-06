@@ -246,7 +246,7 @@
             {% for post in posts %}
             <div class="box">
                 <h2>{{ post.title }}</h2>
-                <p>{{ post.content }}</p>
+                <p>{{ post.text|safe }}</p>
                 <p>ஆர்வம்: {{ post.likes|length }}</p>
                 <p>கருத்துகள்: {{ post.comments|length }}</p>
                 
