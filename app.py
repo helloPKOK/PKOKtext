@@ -8,7 +8,7 @@ from wtforms import TextAreaField, StringField, SubmitField
 import bleach
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pkoktext.sqlite3'
 app.config['SECRET_KEY'] = 'secret'
 
 db = SQLAlchemy(app)
